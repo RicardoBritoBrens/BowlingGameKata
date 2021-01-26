@@ -6,6 +6,7 @@ namespace BowlingGameTest
     {
         private int[] rolls = new int[21];
         private int currentRool = 0;
+        private int _topScoreToGetBonusStrike = 10;
 
         public Game()
         {
@@ -20,17 +21,17 @@ namespace BowlingGameTest
         {
             int score = 0;
             int frameIndex = 0;
-            for (int frame = 0; frame < 10; frame++)
+            for (int frame = 0; frame < _topScoreToGetBonusStrike; frame++)
             {
                 if (IsStrike(frameIndex))
                 {
-                    score += 10 + StrikeBonus(frameIndex);
+                    score += _topScoreToGetBonusStrike + StrikeBonus(frameIndex);
 
                     frameIndex++;
                 }
                 else if (IsSpare(frameIndex))
                 {
-                    score += 10 + SpareBonus(frameIndex);
+                    score += _topScoreToGetBonusStrike + SpareBonus(frameIndex);
                     frameIndex += 2;
                 }
                 else
@@ -44,7 +45,7 @@ namespace BowlingGameTest
 
         private bool IsStrike(int frameIndex)
         {
-            return rolls[frameIndex] == 10;
+            return rolls[frameIndex] == _topScoreToGetBonusStrike;
         }
 
         private int SumOfBallsInFrame(int frameIndex)
@@ -67,7 +68,7 @@ namespace BowlingGameTest
         private bool IsSpare(int frameIndex)
         {
             return rolls[frameIndex] +
-                rolls[frameIndex + 1] == 10;
+                rolls[frameIndex + 1] == _topScoreToGetBonusStrike;
         }
     }
 }
